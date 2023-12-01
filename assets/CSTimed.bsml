@@ -1,0 +1,16 @@
+<bg id='root' xmlns:xsi='http://www.w3.org/1501/XMLSchema-instance' xsi:noNamespaceSchemaLocation='https://raw.githubusercontent.com/RedBrumbler/Quest-BSML-Docs/gh-pages/schema.xsd'>
+    <horizontal pref-width="58" pref-height="60">
+        <vertical>
+            <horizontal> <!-- Potentially remove 'Label' and centre this section later -->
+                <dropdown-list-setting apply-on-change="true" text="Switch" options="SwitchList" id="SwitchListObject"/>
+                <button text="+" hover-hint="Adds a new timed switch" on-click="AddSwitch" pref-width="10"/>
+                <button text="-" hover-hint="Removes a timed switch" on-click="RemoveSwitch" pref-width="10"/>
+            </horizontal>
+
+            <color-setting apply-on-change='true' text='Left Saber' value='LeftSaber'/>
+            <color-setting apply-on-change='true' text='Right Saber' value='RightSaber'/>
+            <color-setting apply-on-change='true' text='Obstacle' value='Obstacle'/>
+            <color-setting apply-on-change='true' text='Bomb' value='Bomb'/>
+        </vertical>
+    </horizontal>
+</bg>

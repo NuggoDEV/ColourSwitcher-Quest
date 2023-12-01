@@ -1,0 +1,20 @@
+<bg id='root' xmlns:xsi='http://www.w3.org/1501/XMLSchema-instance' xsi:noNamespaceSchemaLocation='https://raw.githubusercontent.com/RedBrumbler/Quest-BSML-Docs/gh-pages/schema.xsd'>
+    <horizontal pref-width='48' pref-height='60'>
+        <vertical>
+            <!--<horizontal>
+                <dropdown-list-setting apply-on-change='true' text='Selected Config' choices='ConfigsList' value='SelectedConfig' id='ConfigSelector'/>
+                <button on-click='ShowLastChance' text='Delete' pref-width='15' id='LastChanceButton'/>
+                <button on-click='DeleteConfig' text='Sure?' pref-width='15' id='DeleteButton' active='false'/>
+            </horizontal>-->
+
+            <color-setting apply-on-change='true' text='Left Saber' value='LeftSaber'/>
+            <color-setting apply-on-change='true' text='Right Saber' value='RightSaber'/>
+            <color-setting apply-on-change='true' text='Obstacle' value='Obstacle'/>
+            <color-setting apply-on-change='true' text='Bomb' value='Bomb'/>
+            <horizontal>
+                <string-setting apply-on-change="true" value="ConfigName" text="Config Name"/>
+                <action-button text="Save" pref-width="15"/>
+            </horizontal>
+        </vertical>
+    </horizontal>
+</bg>
