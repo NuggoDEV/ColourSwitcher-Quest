@@ -1,8 +1,8 @@
 #include "UI/CSTimed.hpp"
 #include "Configuration/Config.hpp"
 #include "Configuration/ModConfig.hpp"
+#include "Logger.hpp"
 #include "Models/TimedSwitch.hpp"
-#include "UnityEngine/Color.hpp"
 #include "assets.hpp"
 #include "ColourSwitcher.hpp"
 #include "Macros.hpp"
@@ -11,6 +11,10 @@
 
 #include "System/Collections/Generic/IReadOnlyList_1.hpp"
 #define ReadOnlyList System::Collections::Generic::IReadOnlyList_1
+
+#include "UnityEngine/Color.hpp"
+using namespace UnityEngine;
+#define UColor UnityEngine::Color
 
 DEFINE_TYPE(ColourSwitcher::UI, CSTimed);
 
@@ -28,6 +32,13 @@ namespace ColourSwitcher::UI
     {
         if (config.TimedSwitches.size() != 0)
             ReloadSwitches();
+        else
+        {
+            LeftSaberObject->set_interactable(false);
+            RightSaberObject->set_interactable(false);
+            ObstacleObject->set_interactable(false);
+            BombObject->set_interactable(false);
+        }
     }
 
     void CSTimed::ReloadSwitches()
@@ -35,8 +46,11 @@ namespace ColourSwitcher::UI
         List<StringW> *switchList = List<StringW>::New_ctor();
         for (int i = 0; i < config.TimedSwitches.size(); i++)
             switchList->Add(StringW("Switch " + std::to_string(i + 1)));
-        SwitchListObject->values = reinterpret_cast<ReadOnlyList<StringW>*>(switchList);
-        SwitchListObject->dropdown->SetTexts(reinterpret_cast<ReadOnlyList<StringW>*>(switchList));
+
+        // Cast the List<StringW>* to an IReadOnlyList<StringW>* and set values
+        ReadOnlyList<StringW> *switches = reinterpret_cast<ReadOnlyList<StringW>*>(switchList);
+        SwitchListObject->values = switches;
+        SwitchListObject->dropdown->SetTexts(switches);
         SwitchListObject->UpdateChoices();
     }
 
@@ -45,6 +59,7 @@ namespace ColourSwitcher::UI
         config.TimedSwitches.emplace_back(Models::TimedSwitch());
         Configuration::SaveConfig(getModConfig().SelectedConfig.GetValue(), config);
         ReloadSwitches();
+        SwitchListObject->dropdown->set_selectedIndex(SwitchListObject->values.size() - 1);
     }
 
     void CSTimed::RemoveSwitch()
@@ -52,12 +67,36 @@ namespace ColourSwitcher::UI
         config.TimedSwitches.erase(config.TimedSwitches.begin() + SwitchListObject->index);
         Configuration::SaveConfig(getModConfig().SelectedConfig.GetValue(), config);
         ReloadSwitches();
+        SwitchListObject->dropdown->set_selectedIndex(SwitchListObject->values.size() - 1); 
     }
 
-    //CONFIG_PROPERTY_TIMED(bool, CSTimed, IsActive, config, SwitchListObject->index, false);
-    //CONFIG_PROPERTY_TIMED(int, CSTimed, ActivationTime, config, SwitchListObject->index, 0);
-    CONFIG_PROPERTY_TIMED(UnityEngine::Color, CSTimed, LeftSaber, config, SwitchListObject->index, UnityEngine::Color::get_clear());
-    CONFIG_PROPERTY_TIMED(UnityEngine::Color, CSTimed, RightSaber, config, SwitchListObject->index, UnityEngine::Color::get_clear());
-    CONFIG_PROPERTY_TIMED(UnityEngine::Color, CSTimed, Obstacle, config, SwitchListObject->index, UnityEngine::Color::get_clear());
-    CONFIG_PROPERTY_TIMED(UnityEngine::Color, CSTimed, Bomb, config, SwitchListObject->index, UnityEngine::Color::get_clear());
+    void CSTimed::SwitchSelected()
+    {
+        getLogger().info("%lu %i", config.TimedSwitches.size(), SwitchListObject->index);
+        if (config.TimedSwitches.size() < SwitchListObject->index)
+        {
+            LeftSaberObject->set_interactable(false);
+            RightSaberObject->set_interactable(false);
+            ObstacleObject->set_interactable(false);
+            BombObject->set_interactable(false);
+        }
+        else
+        {
+            getLogger().info("%lu", config.TimedSwitches.size());
+            LeftSaberObject->set_interactable(true);
+            RightSaberObject->set_interactable(true);
+            ObstacleObject->set_interactable(true);
+            BombObject->set_interactable(true);
+            LeftSaberObject->set_currentColor(config.TimedSwitches[SwitchListObject->index].LeftSaber);
+            RightSaberObject->set_currentColor(config.TimedSwitches[SwitchListObject->index].RightSaber);
+            ObstacleObject->set_currentColor(config.TimedSwitches[SwitchListObject->index].Obstacle);
+            BombObject->set_currentColor(config.TimedSwitches[SwitchListObject->index].Bomb);
+        }
+        
+    }
+
+    UI_VALUE(Color, CSTimed, LeftSaber, config.TimedSwitches.size() > 0 ? (UColor) config.TimedSwitches[SwitchListObject->index].LeftSaber : UColor::get_blue());
+    UI_VALUE(Color, CSTimed, RightSaber, config.TimedSwitches.size() > 0 ? (UColor) config.TimedSwitches[SwitchListObject->index].RightSaber : UColor::get_blue());
+    UI_VALUE(Color, CSTimed, Obstacle, config.TimedSwitches.size() > 0 ? (UColor) config.TimedSwitches[SwitchListObject->index].Obstacle : UColor::get_blue());
+    UI_VALUE(Color, CSTimed, Bomb, config.TimedSwitches.size() > 0 ? (UColor) config.TimedSwitches[SwitchListObject->index].Bomb : UColor::get_blue());
 }

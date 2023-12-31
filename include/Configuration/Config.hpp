@@ -21,5 +21,5 @@ namespace ColourSwitcher::Configuration
     void LoadConfig(std::string fileName, Config& config);
     void SaveConfig(std::string fileName, Config config);
     void CreateConfig(std::string fileName);
-    void CreateConfig(std::string fileName, Configuration::Config config);
+    void CreateConfig(std::string fileName, Config config);
 }

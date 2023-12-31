@@ -10,6 +10,7 @@
 #include "bsml/shared/macros.hpp"
 #include "bsml/shared/BSML.hpp"
 #include "bsml/shared/BSML/Components/Settings/DropdownListSetting.hpp"
+#include "bsml/shared/BSML/Components/Settings/ColorSetting.hpp"
 
 
 DECLARE_CLASS_CODEGEN(ColourSwitcher::UI, CSTimed, HMUI::ViewController,
@@ -18,6 +19,7 @@ DECLARE_CLASS_CODEGEN(ColourSwitcher::UI, CSTimed, HMUI::ViewController,
     DECLARE_INSTANCE_METHOD(void, ReloadSwitches);
     DECLARE_INSTANCE_METHOD(void, AddSwitch);
     DECLARE_INSTANCE_METHOD(void, RemoveSwitch);
+    DECLARE_INSTANCE_METHOD(void, SwitchSelected);
 
     DECLARE_INSTANCE_FIELD(BSML::DropdownListSetting*, SwitchListObject);
 
@@ -27,4 +29,9 @@ DECLARE_CLASS_CODEGEN(ColourSwitcher::UI, CSTimed, HMUI::ViewController,
     DECLARE_BSML_PROPERTY(UnityEngine::Color, RightSaber);
     DECLARE_BSML_PROPERTY(UnityEngine::Color, Obstacle);
     DECLARE_BSML_PROPERTY(UnityEngine::Color, Bomb);
+
+    DECLARE_INSTANCE_FIELD(BSML::ColorSetting*, LeftSaberObject);
+    DECLARE_INSTANCE_FIELD(BSML::ColorSetting*, RightSaberObject);
+    DECLARE_INSTANCE_FIELD(BSML::ColorSetting*, ObstacleObject);
+    DECLARE_INSTANCE_FIELD(BSML::ColorSetting*, BombObject);
 )

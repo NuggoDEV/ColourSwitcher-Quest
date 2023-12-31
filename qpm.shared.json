@@ -56,12 +56,26 @@
         "id": "paper",
         "versionRange": "^1.2",
         "additionalData": {}
+      },
+      {
+        "id": "chroma",
+        "versionRange": "^2.8.0",
+        "additionalData": {}
+      },
+      {
+        "id": "sombrero",
+        "versionRange": "^0.1.37",
+        "additionalData": {}
       }
     ],
     "workspace": {
       "scripts": {
-        "restart": [
-          "pwsh ./scripts/restart-game.ps1"
+        "qmod": [
+          "pwsh ./scripts/build.ps1",
+          "pwsh ./scripts/createqmod.ps1"
+        ],
+        "build": [
+          "pwsh ./scripts/build.ps1"
         ],
         "copy": [
           "pwsh ./scripts/copy.ps1"
@@ -69,23 +83,117 @@
         "tomb": [
           "pwsh ./scripts/pull-tombstone.ps1"
         ],
-        "qmod": [
-          "pwsh ./scripts/build.ps1",
-          "pwsh ./scripts/createqmod.ps1"
-        ],
         "logcat": [
           "pwsh ./scripts/start-logging.ps1"
         ],
         "stack": [
           "pwsh ./scripts/ndk-stack.ps1"
         ],
-        "build": [
-          "pwsh ./scripts/build.ps1"
+        "restart": [
+          "pwsh ./scripts/restart-game.ps1"
         ]
       }
     }
   },
   "restoredDependencies": [
+    {
+      "dependency": {
+        "id": "bsml",
+        "versionRange": "=0.3.3",
+        "additionalData": {
+          "soLink": "https://github.com/RedBrumbler/Quest-BSML/releases/download/v0.3.3/libbsml.so",
+          "debugSoLink": "https://github.com/RedBrumbler/Quest-BSML/releases/download/v0.3.3/debug_libbsml.so",
+          "overrideSoName": "libbsml.so",
+          "modLink": "https://github.com/RedBrumbler/Quest-BSML/releases/download/v0.3.3/BSML.qmod",
+          "branchName": "version-v0.3.3"
+        }
+      },
+      "version": "0.3.3"
+    },
+    {
+      "dependency": {
+        "id": "rapidjson-macros",
+        "versionRange": "=1.0.0",
+        "additionalData": {
+          "headersOnly": true,
+          "branchName": "version-v1.0.0"
+        }
+      },
+      "version": "1.0.0"
+    },
+    {
+      "dependency": {
+        "id": "libil2cpp",
+        "versionRange": "=0.2.5",
+        "additionalData": {
+          "headersOnly": true
+        }
+      },
+      "version": "0.2.5"
+    },
+    {
+      "dependency": {
+        "id": "chroma",
+        "versionRange": "=2.8.0",
+        "additionalData": {
+          "headersOnly": true,
+          "overrideSoName": "libchroma.so",
+          "modLink": "https://github.com/bsq-ports/Chroma/releases/download/v2.8.0/chroma.qmod",
+          "branchName": "version/v2_8_0"
+        }
+      },
+      "version": "2.8.0"
+    },
+    {
+      "dependency": {
+        "id": "sombrero",
+        "versionRange": "=0.1.37",
+        "additionalData": {
+          "headersOnly": true,
+          "branchName": "version-v0.1.37"
+        }
+      },
+      "version": "0.1.37"
+    },
+    {
+      "dependency": {
+        "id": "gif-lib",
+        "versionRange": "=5.2.2",
+        "additionalData": {
+          "staticLinking": true,
+          "soLink": "https://github.com/RedBrumbler/gif-lib-QPM/releases/download/v5.2.2/libgif-lib.a",
+          "debugSoLink": "https://github.com/RedBrumbler/gif-lib-QPM/releases/download/v5.2.2/debug_libgif-lib.a",
+          "overrideSoName": "libgif-lib.a",
+          "branchName": "version-v5.2.2"
+        }
+      },
+      "version": "5.2.2"
+    },
+    {
+      "dependency": {
+        "id": "conditional-dependencies",
+        "versionRange": "=0.1.0",
+        "additionalData": {
+          "headersOnly": true
+        }
+      },
+      "version": "0.1.0"
+    },
+    {
+      "dependency": {
+        "id": "tinyxml2",
+        "versionRange": "=9.0.6",
+        "additionalData": {
+          "soLink": "https://github.com/MillzyDev/NDK-tinyxml2/releases/download/v9.0.6/libtinyxml2.so",
+          "debugSoLink": "https://github.com/MillzyDev/NDK-tinyxml2/releases/download/v9.0.6/debug_libtinyxml2.so",
+          "overrideSoName": "libtinyxml2.so",
+          "modLink": "https://github.com/MillzyDev/NDK-tinyxml2/releases/download/v9.0.6/.qmod",
+          "branchName": "version/v9_0_6",
+          "cmake": true
+        }
+      },
+      "version": "9.0.6"
+    },
     {
       "dependency": {
         "id": "paper",
@@ -99,17 +207,6 @@
         }
       },
       "version": "1.2.20"
-    },
-    {
-      "dependency": {
-        "id": "rapidjson-macros",
-        "versionRange": "=1.0.0",
-        "additionalData": {
-          "headersOnly": true,
-          "branchName": "version-v1.0.0"
-        }
-      },
-      "version": "1.0.0"
     },
     {
       "dependency": {
@@ -149,44 +246,6 @@
         }
       },
       "version": "0.15.24"
-    },
-    {
-      "dependency": {
-        "id": "bsml",
-        "versionRange": "=0.3.3",
-        "additionalData": {
-          "soLink": "https://github.com/RedBrumbler/Quest-BSML/releases/download/v0.3.3/libbsml.so",
-          "debugSoLink": "https://github.com/RedBrumbler/Quest-BSML/releases/download/v0.3.3/debug_libbsml.so",
-          "overrideSoName": "libbsml.so",
-          "modLink": "https://github.com/RedBrumbler/Quest-BSML/releases/download/v0.3.3/BSML.qmod",
-          "branchName": "version-v0.3.3"
-        }
-      },
-      "version": "0.3.3"
-    },
-    {
-      "dependency": {
-        "id": "libil2cpp",
-        "versionRange": "=0.2.5",
-        "additionalData": {
-          "headersOnly": true
-        }
-      },
-      "version": "0.2.5"
-    },
-    {
-      "dependency": {
-        "id": "gif-lib",
-        "versionRange": "=5.2.2",
-        "additionalData": {
-          "staticLinking": true,
-          "soLink": "https://github.com/RedBrumbler/gif-lib-QPM/releases/download/v5.2.2/libgif-lib.a",
-          "debugSoLink": "https://github.com/RedBrumbler/gif-lib-QPM/releases/download/v5.2.2/debug_libgif-lib.a",
-          "overrideSoName": "libgif-lib.a",
-          "branchName": "version-v5.2.2"
-        }
-      },
-      "version": "5.2.2"
     },
     {
       "dependency": {
@@ -231,20 +290,6 @@
         }
       },
       "version": "10.0.0"
-    },
-    {
-      "dependency": {
-        "id": "tinyxml2",
-        "versionRange": "=9.0.5",
-        "additionalData": {
-          "soLink": "https://github.com/MillzyDev/NDK-tinyxml2/releases/download/v9.0.5/libtinyxml2.so",
-          "debugSoLink": "https://github.com/MillzyDev/NDK-tinyxml2/releases/download/v9.0.5/debug_libtinyxml2.so",
-          "overrideSoName": "libtinyxml2.so",
-          "modLink": "https://github.com/MillzyDev/NDK-tinyxml2/releases/download/v9.0.5/tinyxml2.qmod",
-          "branchName": "version-v9.0.5"
-        }
-      },
-      "version": "9.0.5"
     }
   ]
 }

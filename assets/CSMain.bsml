@@ -13,7 +13,7 @@
             <color-setting apply-on-change='true' text='Bomb' value='Bomb'/>
             <horizontal>
                 <string-setting apply-on-change="true" value="ConfigName" text="Config Name"/>
-                <action-button text="Save" pref-width="15"/>
+                <action-button text="Save" on-click="SaveConfig" pref-width="15"/>
             </horizontal>
         </vertical>
     </horizontal>
